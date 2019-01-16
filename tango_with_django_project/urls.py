@@ -29,5 +29,6 @@ urlpatterns = [
 	# with rango/ to be handled by 
 	# the rango application
 	url(r'^admin/', admin.site.urls),
+    url(r'^rango/index', views.index, name='index'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 # telling django to serve static content from MEDIA_URL
