@@ -44,7 +44,7 @@ def index(request):
 #Create a new view method called about
 #A link is provided to go back to the index
 def about(request):
-	return render(request, 'rango/about.html')
+	return render(request, 'rango/about.html', {})
 	#return HttpResponse("Rango says here is the about page. <br/> <a href='/rango/'>Index</a>")
 
 def show_category(request, category_name_slug):
@@ -106,19 +106,21 @@ def add_page(request, category_name_slug):
     except Category.DoesNotExist:
         category = None
 
-        form = PageForm()
-        if request.method == 'POST':
-            form = PageForm(request.POST)
-            if form.is_valid():
-                if category:
+    form = PageForm()
+    if request.method == 'POST':
+        form = PageForm(request.POST)
+        if form.is_valid():
+            if category:
                     page = form.save(commit=False)
                     page.category = category
                     page.views = 0
                     page.save()
-                return show_category(request, category_name_slug)
+            return show_category(request, category_name_slug)
 
-            else:
+        else:
                 print(form.errors)
-        context_dict = {'form':form, 'category':category}
-        return render(request, 'rango/add_page.html', context_dict)
+
+    context_dict = {'form':form, 'category':category}
+        
+    return render(request, 'rango/add_page.html', context_dict)
 
