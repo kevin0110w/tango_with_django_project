@@ -3,7 +3,6 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.settings')
 
 import django
-
 django.setup()
 from rango.models import Category, Page
 
@@ -41,11 +40,11 @@ def populate():
             add_page(c, p["title"], p["url"], p["views"])
 
 
-# Print out the categories that have been added
+    # Print out the categories that have been added
 
-for c in Category.objects.all():
-    for p in Page.objects.filter(category=c):
-        print("- {0} - {1}".format(str(c), str(p)))
+    for c in Category.objects.all():
+        for p in Page.objects.filter(category=c):
+            print("- {0} - {1}".format(str(c), str(p)))
 
 
 def add_page(cat, title, url, views=0):
