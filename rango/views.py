@@ -132,17 +132,15 @@ def add_page(request, category_name_slug):
         form = PageForm(request.POST)
         if form.is_valid():
             if category:
-                    page = form.save(commit=False)
-                    page.category = category
-                    page.views = 0
-                    page.save()
-            return show_category(request, category_name_slug)
-
+                page = form.save(commit=False)
+                page.category = category
+                page.views = 0
+                page.save()
+                return show_category(request, category_name_slug)
         else:
-                print(form.errors)
+            print(form.errors)
 
     context_dict = {'form':form, 'category':category}
-        
     return render(request, 'rango/add_page.html', context_dict)
 
 def register(request):
@@ -168,8 +166,7 @@ def register(request):
                 profile.picture = request.FILES['picture']
 
             profile.save()
-            registered = True
-            
+            registered = True    
         else:
             print(user_form.errors, profile_form.errors)
     else:
